@@ -1,0 +1,108 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" class="no-js" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<![endif]-->
+<title>HomeCon</title>
+<!-- BOOTSTRAP CORE CSS -->
+<link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet" />
+<!-- ION ICONS STYLES -->
+<link href="{% static "assets/css/ionicons.css" %}" rel="stylesheet" />
+<!-- FONT AWESOME ICONS STYLES -->
+<link href="{% static "assets/css/font-awesome.css" %}" rel="stylesheet" />
+<!-- FANCYBOX POPUP STYLES -->
+<link href="{% static "assets/js/source/jquery.fancybox.css" %}" rel="stylesheet" />
+<!-- STYLES FOR VIEWPORT ANIMATION -->
+<link href="{% static "assets/css/animations.min.css" %}" rel="stylesheet" />
+<!-- CUSTOM CSS -->
+<link href="{% static "assets/css/style-green.css" %}"rel="stylesheet" />
+
+</head>
+<body data-spy="scroll" data-target="#menu-section">
+
+
+<!--SERVICE SECTION START-->
+<section id="services" >
+<div class="container">
+<div class="row text-center header">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 animate-in" data-anim-type="fade-in-up">
+<h3>HomeCon</h3>
+<hr />
+</div>
+</div>
+<div class="row animate-in" data-anim-type="fade-in-up">
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="services-wrapper">
+<i class="ion-document"></i>
+<a href="{% url 'playpause:Playpause_Change'%}"><h3>PlayPause</h3></a>
+Music is the poerty of Air
+</div>
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="services-wrapper">
+<i class="ion-scissors"></i>
+<a href="google.com"><h3>PlayPause</h3></a>
+Music is the poerty of Air
+</div>
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="services-wrapper">
+<i class="ion-clipboard"></i>
+<a href="google.com"><h3>PlayPause</h3></a>
+Music is the poerty of Air
+</div>
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="services-wrapper">
+<i class="ion-calendar"></i>
+<a href="google.com"><h3>PlayPause</h3></a>
+Music is the poerty of Air
+</div>
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="services-wrapper">
+<i class="ion-erlenmeyer-flask"></i>
+<a href="google.com"><h3>PlayPause</h3></a>
+Music is the poerty of Air
+</div>
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="services-wrapper">
+<i class="ion-monitor"></i>
+<a href="google.com"><h3>PlayPause</h3></a>
+Music is the poerty of Air
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME -->
+<!-- CORE JQUERY -->
+<script type="text/javascript">DJANGO_STATIC_URL = '{% static "assets/" %}';</script>
+<script src="{% static "assets/js/jquery-1.11.1.js"%}"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="{% static "assets/js/bootstrap.js"%}"></script>
+<!-- EASING SCROLL SCRIPTS PLUGIN -->
+<script src="{% static "assets/js/vegas/jquery.vegas.min.js"%}"></script>
+<!-- VEGAS SLIDESHOW SCRIPTS -->
+<script src="{% static "assets/js/jquery.easing.min.js"%}"></script>
+<!-- FANCYBOX PLUGIN -->
+<script src="{% static "assets/js/source/jquery.fancybox.js"%}"></script>
+<!-- ISOTOPE SCRIPTS -->
+<script src="{% static "assets/js/jquery.isotope.js"%}"></script>
+<!-- VIEWPORT ANIMATION SCRIPTS   -->
+<script src="{% static "assets/js/appear.min.js"%}"></script>
+<script src="{% static "assets/js/animations.min.js"%}"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="{% static "js/custom.js"%}"></script>
+
+</body>
+
+</html>

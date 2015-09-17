@@ -1,0 +1,152 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" class="no-js" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<![endif]-->
+<title>HomeCon Playapuse</title>
+<!-- BOOTSTRAP CORE CSS -->
+<link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet" />
+<!-- ION ICONS STYLES -->
+<link href="{% static "assets/css/ionicons.css" %}" rel="stylesheet" />
+<!-- FONT AWESOME ICONS STYLES -->
+<link href="{% static "assets/css/font-awesome.css" %}" rel="stylesheet" />
+<!-- FANCYBOX POPUP STYLES -->
+<link href="{% static "assets/js/source/jquery.fancybox.css" %}" rel="stylesheet" />
+<!-- STYLES FOR VIEWPORT ANIMATION -->
+<link href="{% static "assets/css/animations.min.css" %}" rel="stylesheet" />
+<!-- CUSTOM CSS -->
+<link href="{% static "assets/css/style-green.css" %}"rel="stylesheet" />
+<link href="{% static "assets/css/playpause.css" %}"rel="stylesheet" />
+
+</head>
+<body class="backimag" background="{% static "assets/img/1.jpg" %}">
+<!--MENU SECTION START-->
+<div class="navbar navbar-inverse navbar-fixed-top scroll-me" id="menu-section" >
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="{% url 'index'%}">
+
+HomeCon 
+
+</a>
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-right">
+<li class="active"><a href="{% url 'playpause:Dashboard'%}">Dashboard</a></li>
+<li><a href="{% url 'playpause:Graph'%}">Graph</a></li>
+<li><a href="{% url 'playpause:Analytics'%}">Analytics</a></li>
+<li><a href="{% url 'playpause:Report'%}">Report</a></li>
+<li><a href="{% url 'playpause:Configure'%}">Configure</a></li>
+<li><a href="{% url 'playpause:Machine_Learning'%}">Machine Learning</a></li>
+<li><a href="{% url 'playpause:Error_Log'%}">Error Log</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="startpacing">
+<div class="col-lg-3 col-md-11 col-sm-2 col-xs-12">
+  <h4><button type="button" id="get_info" value="get_info"class="btn btn-danger">Get Info</button></h4>
+  <div class="panel-group">
+    <div class="panel">
+      <div class="panel-heading panel-blue">Device Info</div>
+      <div class="panel-body">
+      <p id="lastcommunication">Last Node Communication : {{ sLastPingInfo.pingat}} ago</p>
+      <p id="lastcmdrequest">Last CMD Request: {{ sLastPingInfo.cmdrequest}} </p>  
+      <p id="lastcmdrequesttime">Last CMD applied: {{ sLastPingInfo.cmdrequesttime}} ago</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-heading panel-red">Panel with panel-success class</div>
+      <div class="panel-body">
+        <p id="lastcmdactiontaken">Last CMD taken: {{ sLastPingInfo.cmdactiontaken}} </p> 
+        <p id="lastcmdactiontime">Last CMD taken : {{ sLastPingInfo.cmdactiontime}} ago</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-heading panel-yellow">Panel with panel-info class</div>
+      <div class="panel-body">
+        <p id="lastcmdstatus">Last CMD Status: {{ sLastPingInfo.cmdstatus}} </p>
+        <p id="lastcmdstatustime">Last CMD Status: {{ sLastPingInfo.cmdstatustime}} </p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-heading panel-green">Panel with panel-warning class</div>
+      <div class="panel-body">Panel Content</div>
+    </div>
+  </div>
+  </div>
+  
+  <div class="col-lg-4 col-md-11 col-sm-2 col-xs-12">
+    <div class="panel">
+      <div class="panel-heading panel-mp3"><p class="glyphicon glyphicon-music">MP3 Controls </p></div>
+        <div class="panel-body">
+          <div class="buttons">
+            <button type="button" id="mp3_prev"  class="btn btn-default btn-lg button-skip-backward" value="mp3_prev">
+            <span class="glyphicon glyphicon-fast-backward"></span>
+            </button>
+            &nbsp;
+            <button type="button" id="mp3_pause" class="btn btn-default btn-lg button-pause" value="mp3_pause">
+            <span class="glyphicon glyphicon-pause"></span>
+            </button>
+            &nbsp;
+            <button type="button" id="mp3_stop" class="btn btn-default btn-lg button-stop" value="mp3_stop">
+            <span class="glyphicon glyphicon-stop"></span>
+            </button>
+            &nbsp;
+            <button type="button" id="mp3_play" class="btn btn-default btn-lg button-play" value="mp3_play">
+            <span class="glyphicon glyphicon-play"></span>
+            </button>
+            &nbsp;
+            <button type="button" id="mp3_next" class="btn btn-default btn-lg button-skip-forward" value="mp3_next">
+            <span class="glyphicon glyphicon-fast-forward"></span>
+            </button>
+            &nbsp;
+            <button type="button" id="volume" class="btn btn-default btn-lg" value="volume">
+            <span class="glyphicon glyphicon glyphicon-volume-up"></span>
+            </button>
+            <br>
+            <br>
+            <input type="range" id="volumerange" value="5">
+          </div>
+        </div>
+    </div>
+  </div>
+
+<!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME -->
+<!-- CORE JQUERY -->
+<script type="text/javascript">DJANGO_STATIC_URL = '{% static "assets/" %}';</script>
+<script src="{% static "assets/js/jquery-1.11.1.js"%}"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="{% static "assets/js/bootstrap.js"%}"></script>
+<!-- EASING SCROLL SCRIPTS PLUGIN -->
+<!--<script src="{% static "assets/js/vegas/jquery.vegas.min.js"%}"></script>-->
+<!-- VEGAS SLIDESHOW SCRIPTS -->
+<script src="{% static "assets/js/jquery.easing.min.js"%}"></script>
+<!-- FANCYBOX PLUGIN -->
+<script src="{% static "assets/js/source/jquery.fancybox.js"%}"></script>
+<!-- ISOTOPE SCRIPTS -->
+<script src="{% static "assets/js/jquery.isotope.js"%}"></script>
+<!-- VIEWPORT ANIMATION SCRIPTS   -->
+<script src="{% static "assets/js/appear.min.js"%}"></script>
+<script src="{% static "assets/js/animations.min.js"%}"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="{% static "assets/js/custom.js"%}"></script>
+<script src="{% static "assets/js/mp3_yx5300.js"%}"></script>
+</body>
+
+</html>
