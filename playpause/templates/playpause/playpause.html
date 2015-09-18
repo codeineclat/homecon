@@ -63,31 +63,44 @@ HomeCon
       <div class="panel-heading panel-blue">Device Info</div>
       <div class="panel-body">
       <p id="lastcommunication">Last Node Communication : {{ sLastPingInfo.pingat}} ago</p>
-      <p id="lastcmdrequest">Last CMD Request: {{ sLastPingInfo.cmdrequest}} </p>  
-      <p id="lastcmdrequesttime">Last CMD applied: {{ sLastPingInfo.cmdrequesttime}} ago</p>
+      
       </div>
     </div>
 
     <div class="panel">
-      <div class="panel-heading panel-red">Panel with panel-success class</div>
+      <div class="panel-heading panel-red">Recent Failed Process</div>
       <div class="panel-body">
-        <p id="lastcmdactiontaken">Last CMD taken: {{ sLastPingInfo.cmdactiontaken}} </p> 
-        <p id="lastcmdactiontime">Last CMD taken : {{ sLastPingInfo.cmdactiontime}} ago</p>
+        <p id="lastfailcmd">CMD failed: {{ sLastPingInfo.failcmd}} </p> 
+        <p id="lastfailtime">CMD failed at: {{ sLastPingInfo.failtime}} ago</p>
       </div>
     </div>
 
+
     <div class="panel">
-      <div class="panel-heading panel-yellow">Panel with panel-info class</div>
+      <div class="panel-heading panel-yellow">Recent Running Process</div>
       <div class="panel-body">
-        <p id="lastcmdstatus">Last CMD Status: {{ sLastPingInfo.cmdstatus}} </p>
-        <p id="lastcmdstatustime">Last CMD Status: {{ sLastPingInfo.cmdstatustime}} </p>
+        <p id="lastcmdaction">CMD Taken  : {{ sLastPingInfo.cmdaction}} </p>  
+        <p id="lastcmdactiontime">CMD Taken at: {{ sLastPingInfo.cmdactiontime}} ago</p>
       </div>
     </div>
 
     <div class="panel">
-      <div class="panel-heading panel-green">Panel with panel-warning class</div>
-      <div class="panel-body">Panel Content</div>
+      <div class="panel-heading panel-green">Recent Sucess Process</div>
+      <div class="panel-body">
+        <p id="lastcmdcmd">CMD value : {{ sLastPingInfo.cmdcmd}}</p>
+        <p id="lastcmdstatus">CMD Status  : {{ sLastPingInfo.cmdstatus}} </p>  
+        <p id="lastcmdstatustime">CMD Status at: {{ sLastPingInfo.cmdstatustime}} ago</p>
+      </div>
     </div>
+
+    <div class="panel">
+      <div class="panel-heading panel-skyblue">Recent Applied Process</div>
+      <div class="panel-body">
+        <p id="lastcmdrequest">CMD Requested  : {{ sLastPingInfo.cmdrequest}} </p>  
+        <p id="lastcmdrequesttime">CMD Requested at: {{ sLastPingInfo.cmdrequesttime}} ago</p>
+      </div>
+    </div>
+
   </div>
   </div>
   

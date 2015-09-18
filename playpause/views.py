@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponse
 from django.http import JsonResponse
 import datetime
 import pytz
-from playpause.models import Log
+from playpause.models import Log,Action,Sucess,Fail
 from services.models import Pings, Recent_Request
 from django.utils.timezone import utc
 from . import playpausecontrol
@@ -57,53 +57,85 @@ def Playpause_Change(request):
 		time = (datetime.datetime.now(tz=tz))
 		sSiliconid = "181E0BC8000E1440"
 		sStringpacket = playpausecontrol.Palypause_Packet_Constractor(sAppID,sCommand,sFunction)
-		print (sPlaypauseValue)
+
 		if sPlaypauseValue != "get_info":
+
+			sLog = Log.objects.latest('id')
+			if (sLog.action_taken == 0):
+				sFail = Fail(fail_at = time,siliconid=sSiliconid,log_id=sLog.id)
+				sFail.save()
+
 			sLogToDatabase = Log(log_at=time,log_value=sPlaypauseValue,log_cmd = sCommand,
 				log_function = sFunction,log_appid = sAppID,siliconid=sSiliconid,
-				packet_str = sStringpacket,action_at=time,sucess_at=time)
+				packet_str = sStringpacket)
 		
 			sLogToDatabase.save()
 
 		sLastPing = Pings.objects.latest('id')
 		sLog      = Log.objects.latest('id')
+		sAction   = Action.objects.latest('id')
+		sSucess   = Sucess.objects.latest('id')
+		sFail     = Fail.objects.latest('id')
 
 		PingTime       = sLastPing.sPingAt
 		PingTime       = Last_Ping_Time_Diff(PingTime)
+
 		CmdRequest     = sLog.log_value
 		CmdRequestTime = sLog.log_at
 		CmdRequestTime = Last_Ping_Time_Diff(CmdRequestTime)
-		CmdActionTaken = sLog.action_taken
-		CmdActionTime  = sLog.action_at
+
+		CmdActionTime  = sAction.action_at
 		CmdActionTime  = Last_Ping_Time_Diff(CmdActionTime)
-		CmdStatus      = sLog.sucess_status
-		CmdStatusTime  = sLog.sucess_at
+
+		CmdAction      = (Log.objects.get(id = sAction.log_id)).log_value
+
+		CmdStatus      = sSucess.sucess_status
+		CmdStatusTime  = sSucess.sucess_at
 		CmdStatusTime  = Last_Ping_Time_Diff(CmdStatusTime)
+		CmdCmd         = (Log.objects.get(id = sSucess.log_id)).log_value
+
+		FailCmd        = (Log.objects.get(id = sFail.log_id)).log_value
+		FailTime       = sFail.fail_at
+		FailTime       = Last_Ping_Time_Diff(FailTime)
 
 		sLastPingInfo = {'pingat':PingTime,'siliconid' :sLastPing.sSiliconID,
 						'RSSI':99,'cmdrequest':CmdRequest,'cmdrequesttime':CmdRequestTime,
-						'cmdactiontaken':CmdActionTaken,'cmdactiontime':CmdActionTime,
-						'cmdstatus':CmdStatus,'cmdstatustime':CmdStatusTime,}
+						'cmdaction':CmdAction,'cmdactiontime':CmdActionTime,'cmdstatus':CmdStatus,
+						'cmdstatustime':CmdStatusTime,'cmdcmd':CmdCmd,'failcmd':FailCmd,
+						'failtime':FailTime,}
 
 	sLastPing = Pings.objects.latest('id')
 	sLog      = Log.objects.latest('id')
-
+	sAction   = Action.objects.latest('id')
+	sSucess   = Sucess.objects.latest('id')
+	sFail     = Fail.objects.latest('id')
+	
 	PingTime       = sLastPing.sPingAt
 	PingTime       = Last_Ping_Time_Diff(PingTime)
+
 	CmdRequest     = sLog.log_value
 	CmdRequestTime = sLog.log_at
 	CmdRequestTime = Last_Ping_Time_Diff(CmdRequestTime)
-	CmdActionTaken = sLog.action_taken
-	CmdActionTime  = sLog.action_at
+
+	CmdActionTime  = sAction.action_at
 	CmdActionTime  = Last_Ping_Time_Diff(CmdActionTime)
-	CmdStatus      = sLog.sucess_status
-	CmdStatusTime  = sLog.sucess_at
+
+	CmdAction      = (Log.objects.get(id = sAction.log_id)).log_value
+
+	CmdStatus      = sSucess.sucess_status
+	CmdStatusTime  = sSucess.sucess_at
 	CmdStatusTime  = Last_Ping_Time_Diff(CmdStatusTime)
+	CmdCmd         = (Log.objects.get(id = sSucess.log_id)).log_value
+
+	FailCmd        = (Log.objects.get(id = sFail.log_id)).log_value
+	FailTime       = sFail.fail_at
+	FailTime       = Last_Ping_Time_Diff(FailTime)
 
 	sLastPingInfo = {'pingat':PingTime,'siliconid' :sLastPing.sSiliconID,
 					'RSSI':99,'cmdrequest':CmdRequest,'cmdrequesttime':CmdRequestTime,
-					'cmdactiontaken':CmdActionTaken,'cmdactiontime':CmdActionTime,
-					'cmdstatus':CmdStatus,'cmdstatustime':CmdStatusTime,}	
+					'cmdaction':CmdAction,'cmdactiontime':CmdActionTime,'cmdstatus':CmdStatus,
+					'cmdstatustime':CmdStatusTime,'cmdcmd':CmdCmd,'failcmd':FailCmd,
+					'failtime':FailTime,}
 
 	return render(request,"playpause/playpause.html",{'sLastPingInfo': sLastPingInfo})
 

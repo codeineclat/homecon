@@ -35,18 +35,24 @@ function Send_Value_To_server (value,cmd,fun) {
 	  			var lastcommunication  = $(sLastPingInfo).find('#lastcommunication').text();
 	  			var lastcmdrequest     = $(sLastPingInfo).find('#lastcmdrequest').text();
 	  			var lastcmdrequesttime = $(sLastPingInfo).find('#lastcmdrequesttime').text();
-	  			var lastcmdactiontaken = $(sLastPingInfo).find('#lastcmdactiontaken').text();
+	  			var lastcmdaction 	   = $(sLastPingInfo).find('#lastcmdaction').text();
 	  			var lastcmdactiontime  = $(sLastPingInfo).find('#lastcmdactiontime').text();
 	  			var lastcmdstatus      = $(sLastPingInfo).find('#lastcmdstatus').text();
 	  			var lastcmdstatustime  = $(sLastPingInfo).find('#lastcmdstatustime').text();
-	  			
+	  			var lastcmdcmd         = $(sLastPingInfo).find('#lastcmdcmd').text();
+	  			var lastfailtime       = $(sLastPingInfo).find('#lastfailtime').text();
+	  			var lastfailcmd         = $(sLastPingInfo).find('#lastfailcmd').text();
+
 	  			$('#lastcommunication').html(lastcommunication);
 	  			$('#lastcmdrequest').html(lastcmdrequest);
 	  			$('#lastcmdrequesttime').html(lastcmdrequesttime);
-	  			$('#lastcmdactiontaken').html(lastcmdactiontaken);
+	  			$('#lastcmdaction').html(lastcmdaction);
 	  			$('#lastcmdactiontime').html(lastcmdactiontime);
 	  			$('#lastcmdstatus').html(lastcmdstatus);
 	  			$('#lastcmdstatustime').html(lastcmdstatustime);
+	  			$('#lastcmdcmd').html(lastcmdcmd);
+	  			$('#lastfailtime').html(lastfailtime);
+	  			$('#lastfailcmd').html(lastfailcmd);
 	  			},
    	  		headers:{
    	  			'X-CSRFToken': csrftoken
