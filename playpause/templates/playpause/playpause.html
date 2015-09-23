@@ -14,6 +14,7 @@
 <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet" />
 <!-- ION ICONS STYLES -->
 <link href="{% static "assets/css/ionicons.css" %}" rel="stylesheet" />
+<link href="{% static "assets/css/dataTables.bootstrap.min.css" %}" rel="stylesheet" />
 <!-- FONT AWESOME ICONS STYLES -->
 <link href="{% static "assets/css/font-awesome.css" %}" rel="stylesheet" />
 <!-- FANCYBOX POPUP STYLES -->
@@ -23,6 +24,7 @@
 <!-- CUSTOM CSS -->
 <link href="{% static "assets/css/style-green.css" %}"rel="stylesheet" />
 <link href="{% static "assets/css/playpause.css" %}"rel="stylesheet" />
+
 
 </head>
 <body class="backimag" background="{% static "assets/img/1.jpg" %}">
@@ -106,7 +108,8 @@ HomeCon
   
   <div class="col-lg-4 col-md-11 col-sm-2 col-xs-12">
     <div class="panel">
-      <div class="panel-heading panel-mp3"><p class="glyphicon glyphicon-music">MP3 Controls </p></div>
+      <div class="panel-heading panel-mp3"> 
+      <p id="lastsong">{{sLastPingInfo.lastsong}}</p></div>
         <div class="panel-body">
           <div class="buttons">
             <button type="button" id="mp3_prev"  class="btn btn-default btn-lg button-skip-backward" value="mp3_prev">
@@ -138,7 +141,52 @@ HomeCon
           </div>
         </div>
     </div>
+    <div class="panel">
+      <div class="panel-heading panel-skyblue">Mp3 Song List</div>
+        <div class="panel-body">
+          <div id="table-wrapper">
+            <div id="table-scroll">
+              <table>
+                {% for sSong in sSonglist %}
+                  <tr>
+                    <td>
+                      <p>
+                        <button class="astext"id="'song_'{{sSong.id}}"onClick="songselected(this)" value="{{sSong.id}}">  
+                        {{sSong.id }} . {{ sSong.name }}</button>
+                      </p>
+                    </td>
+                  </tr> 
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+      </div>
+    </div> 
+    <div class="panel">
+      <div class="panel-heading panel-fm">Avalible FM Stations</div>
+        <div class="panel-body">
+          <button type="button" id="fm0927" value="fm0927"class="btn btn-info">92.7</button>
+          &nbsp;
+          <button type="button" id="fm0935" value="fm0935"class="btn btn-info">93.5</button>
+          &nbsp;
+          <button type="button" id="fm1006" value="fm1006"class="btn btn-info">100.6</button>
+          &nbsp;
+          <button type="button" id="fm1052" value="fm1052"class="btn btn-info">105.2</button>
+          &nbsp;
+          <button type="button" id="fm_stop" class="btn btn-default btn-lg button-stop" value="fm_stop">
+            <span class="glyphicon glyphicon-stop"></span>
+            </button>
+            &nbsp;
+          <button type="button" id="fmvolume" class="btn btn-default btn-lg" value="fmvolume">
+            <span class="glyphicon glyphicon glyphicon-volume-up"></span>
+          </button>
+          <br>
+          <input type="range" id="fmvolumerange" value="5">
+      </div>
+    </div>                                                                                    
   </div>
+
+    
 
 <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME -->
 <!-- CORE JQUERY -->
@@ -157,9 +205,11 @@ HomeCon
 <!-- VIEWPORT ANIMATION SCRIPTS   -->
 <script src="{% static "assets/js/appear.min.js"%}"></script>
 <script src="{% static "assets/js/animations.min.js"%}"></script>
+
 <!-- CUSTOM SCRIPTS -->
 <script src="{% static "assets/js/custom.js"%}"></script>
 <script src="{% static "assets/js/mp3_yx5300.js"%}"></script>
+
 </body>
 
 </html>

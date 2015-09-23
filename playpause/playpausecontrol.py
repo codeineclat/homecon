@@ -1,6 +1,6 @@
 from . import MP3_Constant
 from random import randrange
-
+import datetime
 
 def Palypause_Packet_Constractor(sAppID,sCommand,sFunction):
 	
@@ -16,3 +16,4 @@ def Palypause_Packet_Constractor(sAppID,sCommand,sFunction):
 	sStringPacket = sStringPacket + '*05' + sFunction + sCommand + uiCodeID + '$'
 
 	return sStringPacket
+

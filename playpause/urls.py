@@ -10,4 +10,5 @@ urlpatterns = [
 	url(r'^configre/$',views.Configure, name='Configure'),
 	url(r'^machinelearning/$',views.Machine_Learning, name='Machine_Learning'),
 	url(r'^errorlog/$',views.Error_Log, name='Error_Log'),
+	url(r'^uploadfile/$',views.Uploadfileview, name='Uploadfileview'),
 ]
