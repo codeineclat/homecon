@@ -112,7 +112,7 @@ def Playpause_Change(request):
 						slog_song = sLastSong.name
 						slog_song_id=sLastSong.id
 					slastsongstore = Getlastsong(song_name = sLastSong.name,song_id=sLastSong.id)
-					
+
 				elif(sPlaypauseValue == "mp3_next"):
 					maxsong = Songs.objects.latest('id')
 					if(sGetlastSong.song_id < maxsong.id):
@@ -138,8 +138,6 @@ def Playpause_Change(request):
 				sErrorlog = Errorlog(error_at = time, error_name = e)
 				slog_song   = "error" 
 				slog_song_id= 0
-
-				
 
 		else:
 			sCommand = str(sCommand)
@@ -169,11 +167,30 @@ def Playpause_Change(request):
 			print (sLogToDatabase.log_song)
 			sLogToDatabase.save()
 
-		sLastPing = Pings.objects.latest('id')
-		sLog      = Log.objects.latest('id')
-		sAction   = Action.objects.latest('id')
-		sSucess   = Sucess.objects.latest('id')
-		sFail     = Fail.objects.latest('id')
+		try:
+			sLastPing = Pings.objects.latest('id')
+		except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
+		
+		try:
+			sLog      = Log.objects.latest('id')
+		except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
+
+		try:
+			sAction   = Action.objects.latest('id')
+		except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
+
+		try:	
+			sSucess   = Sucess.objects.latest('id')
+		except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
+
+		try:	
+			sFail     = Fail.objects.latest('id')
+		except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
 
 		PingTime       = sLastPing.sPingAt
 		PingTime       = Last_Ping_Time_Diff(PingTime)
@@ -215,11 +232,30 @@ def Playpause_Change(request):
 						'cmdstatustime':CmdStatusTime,'cmdcmd':CmdCmd,'failcmd':FailCmd,
 						'failtime':FailTime,'lastsong':sLastSong,}
 
-	sLastPing = Pings.objects.latest('id')
-	sLog      = Log.objects.latest('id')
-	sAction   = Action.objects.latest('id')
-	sSucess   = Sucess.objects.latest('id')
-	sFail     = Fail.objects.latest('id')
+	try:
+		sLastPing = Pings.objects.latest('id')
+	except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
+
+	try:
+		sLog      = Log.objects.latest('id')
+	except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
+
+	try:
+		sAction   = Action.objects.latest('id')
+	except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
+
+	try:
+		sSucess   = Sucess.objects.latest('id')
+	except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
+
+	try:
+		sFail     = Fail.objects.latest('id')
+	except Exception as e:
+			sErrorlog = Errorlog(error_at = time, error_name = e)
 
 	PingTime       = sLastPing.sPingAt
 	PingTime       = Last_Ping_Time_Diff(PingTime)
