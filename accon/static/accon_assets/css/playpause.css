@@ -1,0 +1,59 @@
+.panel-body {
+background:#191144;}
+
+.panel-green{
+	background-color:green !important; 
+}
+
+.panel-blue{
+	background-color:blue !important; 
+}
+
+.panel-red{
+	background-color:red !important; 
+}
+
+.panel-yellow{
+	background-color:#D2C614 !important; 
+}
+
+.panel-skyblue{
+	background-color:#1BB2B7 !important; 
+}
+
+.panel-mp3{
+	background-color:#E10EE5 !important; 
+}
+.panel-fm{
+	background-color:#DA325E !important; 
+}
+
+
+.astext {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+}
+
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:300px;
+  overflow:auto;  
+  margin-top:2px;
+}
+#table-wrapper table {
+  width:100%;
+    
+}
+
+#table-wrapper table thead th .text {
+  position:absolute;   
+  top:-20px;
+  z-index:2;
+  height:20px;
+  width:35%;
+  border:1px solid red;
+}

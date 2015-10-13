@@ -27,3 +27,9 @@ class Recent_Request(models.Model):
 	def __str__(self):
 		return str(self.request_appid)
 
+class Serrorlog(models.Model):
+	error_name   = models.CharField(default="",max_length=1000)
+	error_at   = models.DateTimeField(default=None,blank=True)
+	
+	def __str__(self):
+		return str(self.error_name)

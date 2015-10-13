@@ -56,7 +56,7 @@ class Songs(models.Model):
 		return str(self.name)
 
 class Errorlog(models.Model):
-	eroor_name   = models.CharField(default="",max_length=1000)
+	error_name   = models.CharField(default="",max_length=1000)
 	error_at   = models.DateTimeField(default=None,blank=True)
 	
 	def __str__(self):
@@ -69,3 +69,11 @@ class Getlastsong(models.Model):
 	def __str__(self):
 		return str(song_name)
 
+class Storeconfiginfo(models.Model):
+	xbee_name = models.CharField(default="",max_length=256)
+	xbee_number = models.CharField(default="",max_length=256)
+
+	def __str__(self):
+		return str(xbee_name)
+
+		

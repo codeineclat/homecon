@@ -20,6 +20,7 @@ urlpatterns = [
 	url(r'^playpause/',include('playpause.urls',namespace='playpause')),
 	url(r'services/',include('services.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accon/',include('accon.urls',namespace='accon')),
     url(r'^$',views.index, name='index'),
     url(r'^accounts/',include('registration.backends.default.urls')),
 ]
