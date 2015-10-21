@@ -9,16 +9,17 @@ class ACDetails(models.Model):
 	device_img_off = models.CharField(default="",max_length=256)
 	device_place   = models.IntegerField(null=True,default=0)
 	current_value  = models.IntegerField(null=True,default=0)
-
+	current_scale  = models.IntegerField(null=True,default=0)
+	
 	def __str__(self):
 		return str(self.device_info)
 
 class ACLog(models.Model):
 	user           = models.ForeignKey(User,null=True,blank=True)
 	log_at         = models.DateTimeField(default=None,blank=True)
-	log_value      = models.TextField(default="")
-	log_cmd        = models.CharField(max_length=20, default='0')
-	log_function   = models.CharField(max_length=20, default='0')
+	log_deviceid   = models.TextField(default="")
+	log_value      = models.CharField(max_length=20, default='0')
+	log_speed      = models.IntegerField(null=True,default=0)
 	log_appid      = models.CharField(max_length=20, default='0')
 	log_info       = models.CharField(default="",max_length=256)
 	log_info_id    = models.IntegerField(null=True,default=0)
@@ -62,3 +63,10 @@ class ACErrorlog(models.Model):
 	
 	def __str__(self):
 		return str(self.error_name)
+
+class ACStoreconfiginfo(models.Model):
+	xbee_name = models.CharField(default="",max_length=256)
+	xbee_number = models.CharField(default="",max_length=256)
+
+	def __str__(self):
+		return str(xbee_name)

@@ -3,12 +3,11 @@ from django.http import JsonResponse
 import datetime
 import pytz
 from playpause.models import Log,Action,Sucess,Fail,Uploadfile,Songs,Errorlog,Getlastsong,Storeconfiginfo
-from services.models import Pings, Recent_Request
+from services.models import Pings, Recent_Request,Recent_App_Request
 from playpause.forms  import UploadFileForm 
 from django.utils.timezone import utc
 from . import playpausecontrol
 from django.template import RequestContext
-
 
 def Last_Ping_Time_Diff(Time):
 	now = datetime.datetime.utcnow().replace(tzinfo=utc)
@@ -175,6 +174,9 @@ def Playpause_Change(request):
 				log_function = sFunction,log_appid = sAppID,siliconid=sSiliconid,
 				packet_str = sStringpacket,log_song = slog_song,log_song_id=slog_song_id)
 			sLogToDatabase.save()
+
+			sAppRequest = Recent_App_Request(app_id=sAppID,app_name="playpause")
+			sAppRequest.save()
 
 		try:
 			sLastPing = Pings.objects.latest('id')

@@ -56,9 +56,59 @@ HomeCon
 </div>
 </div>
 </div>
+<br/>
 
 <div class="startpacing">
 	<div class="row">
+		<div class="panel-group">
+			<div class="col-sm-3">
+    			<div class="panel">
+      				<div class="panel-heading panel-red">Recent Failed Process</div>
+      				<div class="panel-body">
+      					<p id="acconfailinfo">CMD failed: {{ acconfailinfo }} </p>
+      					<p id="acconfailvalue">CMD value: {{ acconfailvalue }} </p> 
+        				<p id="acconfailtime">CMD failed at: {{ acconfailtime }} ago</p>
+     		 		</div>
+    			</div>
+			</div>
+			<div class="col-sm-3">
+    			<div class="panel">
+      				<div class="panel-heading panel-yellow">Recent Running Process</div>
+      				<div class="panel-body">
+      					<p id="acconactioninfo">CMD taken: {{ acconactioninfo }} </p>
+      					<p id="acconactionvalue">CMD value: {{ acconactionvalue }} </p> 
+        				<p id="acconactiontime">CMD taken at: {{ acconactiontime }} ago</p>
+     		 		</div>
+    			</div>
+			</div>
+			<div class="col-sm-3">
+    			<div class="panel">
+      				<div class="panel-heading panel-skyblue">Recent Sucess Process</div>
+      				<div class="panel-body">
+      					<p id="acconsucessinfo">CMD info: {{ acconsucessinfo }} </p>
+      					<p id="acconsucessstatus">CMD status: {{ acconsucessstatus }} </p> 
+        				<p id="acconsucesstime">CMD  status at: {{ acconsucesstime }} ago</p>
+     		 		</div>
+    			</div>
+			</div>
+			<div class="col-sm-3">
+    			<div class="panel">
+      				<div class="panel-heading panel-blue">Recent Applied Process</div>
+      				<div class="panel-body">
+      					<p id="acconfailinfo">CMD failed: {{ acconfailinfo }} </p>
+      					<p id="acconfailvalue">CMD value: {{ acconfailvalue }} </p> 
+        				<p id="acconfailtime">CMD failed at: {{ acconfailtime }} ago</p>
+     		 		</div>
+    			</div>
+			</div>
+		</div>
+	</div>
+	<br/>
+
+
+	<div class="row">
+		{% static "" as baseUrl %}
+		<input type="hidden" id="baseurl" value="{{baseUrl}}">
 		{% for sDetail in sAcconDetail %}	
 				<div class="col-sm-3">
 					<div class="panel">
@@ -67,34 +117,33 @@ HomeCon
         						{% static "" as baseUrl %}
         						{% if sDetail.device_id == 1 %}
         							{% if sDetail.current_value == 1 %}
-										<img src="{{baseUrl}}/{{ sDetail.device_img_on }}"height=	"250" width="310">
-        							}
+										<img src="{{baseUrl}}{{ sDetail.device_img_on }}" id = "device_img_{{sDetail.device_place}}" height="150" width="210">
 									{% else %}
-								    	<img src="{{baseUrl}}/{{ sDetail.device_img_off }}"height=	"250" width="310">
+								    	<img src="{{baseUrl}}{{ sDetail.device_img_off }}" id = "device_img_{{sDetail.device_place}}" height="150" width="210">
 									{% endif %}
 								{% endif %}
 
 								{% if sDetail.device_id == 2 %}
         							{% if sDetail.current_value == 0 %}
-										<img src="{{baseUrl}}/{{ sDetail.device_img_off }}"height=	"250" width="310">
-        							}
+										<img src="{{baseUrl}}{{ sDetail.device_img_off }}" id = "device_img_{{sDetail.device_place}}"height="150" width="210">
+
 									{% else %}
-								    	<img src="{{baseUrl}}/{{ sDetail.device_img_on }}"height=	"250" width="310">
+								    	<img src="{{baseUrl}}{{ sDetail.device_img_on }}" id = "device_img_{{sDetail.device_place}}" height="150" width="210">
 									{% endif %}
 								{% endif %}
 
 							</div>
 						<div class="panel-footer clearfix">
 							{% if sDetail.device_id == 1 %}
-								&nbsp;
-								<button type="button" id="on_'{{sDetail.device_place}}" value="01"class="btn btn-info">ON</button>&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" id="off_'{{sDetail.device_place}}" value="00"class="btn btn-info">OFF</button>
+								<button type="button" id="onn_{{sDetail.device_place}}"onClick="Button_Selected(this)" value="01"class="btn btn-info">ON</button>&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" id="off_{{sDetail.device_place}}"
+								onClick="Button_Selected(this)" value="00"class="btn btn-info">OFF</button>
 							{% endif %}
 
 							{% if sDetail.device_id == 2 %}
 								&nbsp;
-								<input type="range" id="myRange" value="90">
-								<button type="button" id="set_'{{sDetail.device_place}}" value="00"class="btn btn-info">set</button>
+								<input type="range" id="Rangeset_{{sDetail.device_place}}" value="{{sDetail.current_scale}}" style="width:210px;margin:0;display:inline;"/>
+								<button type="button" id="set_{{sDetail.device_place}}"onClick="Button_Selected(this)" value="02"class="btn btn-info">Set</button>
 							{% endif %}
 
 						</div>
@@ -103,39 +152,7 @@ HomeCon
 		
 		{% endfor %}
 	</div>
-	</div>
-
-		<!--<div class="col-sm-3">
-			<img src="{% static 'accon_assets/img/fan_on.gif' %}"height="250" width="250">		
-		</div>
-
-		<div class="col-sm-3">
-			<img src="{% static 'accon_assets/img/bulb_on.jpg' %}"height="250" width="250">
-		</div>
-
-		<div class="col-sm-3">
-			<img src="{% static 'accon_assets/img/fan_on.gif' %}"height="250" width="250">
-		</div>	
-	</div>
-	
-	<div class="row">
-		<div class="col-sm-3">
-			<img src="{% static 'accon_assets/img/fan_on.gif' %}"height="250" width="250">		
-		</div>
-		<div class="col-sm-3">
-			<img src="{% static 'accon_assets/img/bulb_on.jpg' %}"height="250" width="250">		
-		</div>
-		<div class="col-sm-3">
-			<img src="{% static 'accon_assets/img/fan_on.gif' %}"height="250" width="250">		
-		</div>
-		<div class="col-sm-3">
-			<img src="{% static 'accon_assets/img/bulb_on.jpg' %}"height="250" width="250">		
-		</div>
-	</div>-->
-
-  
 </div>
-    
 
 <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME -->
 <!-- CORE JQUERY -->
@@ -157,7 +174,7 @@ HomeCon
 
 <!-- CUSTOM SCRIPTS -->
 <script src="{% static "accon_assets/js/custom.js"%}"></script>
-<script src="{% static "accon_assets/js/mp3_yx5300.js"%}"></script>
+<script src="{% static "accon_assets/js/accon.js"%}"></script>
 
 </body>
 

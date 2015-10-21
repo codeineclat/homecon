@@ -1,16 +1,13 @@
 from django.shortcuts import render, HttpResponse
-from services.models import Pings,Recent_Request
+from services.models import Pings,Recent_Request,Recent_App_Request
 from django.utils import timezone
 import datetime
 import pytz
 from playpause.models import Log,Action,Sucess
 from . import servicecontrol
-
-
-
+from accon.models import *
 
 def Ping_Packet(request):
-	print (request)
 	sPingPacket = request.GET.get('pkt', '')
 	sTimeZone = pytz.timezone("Asia/Kolkata")
 	sTime = (datetime.datetime.now())
@@ -20,28 +17,64 @@ def Ping_Packet(request):
 
 	if(sSiliconid == "181E0BC8000E1440"):
 		try:
-			sLastLog = Log.objects.latest('id')
+			sApp_Request = Recent_App_Request.objects.latest('id')
+
+			if (sApp_Request.app_id == "0065"):
+				try:
+					sLastLog = Log.objects.latest('id')
 		
-			if(sLastLog.action_taken == 0):
-				sValue = sLastLog.packet_str
-				sLastLog.action_taken = '1'
-				sAction = Action(log_id=sLastLog.id,action_at=sTime,siliconid=sLastLog.siliconid)
+					if(sLastLog.action_taken == 0):
+						sValue = sLastLog.packet_str
+						sLastLog.action_taken = '1'
+						sAction = Action(log_id=sLastLog.id,action_at=sTime,siliconid=sLastLog.siliconid)
 			
-				sAction.save()
-				sLastLog.save()
+						sAction.save()
+						sLastLog.save()
 
-				sStringPacket = servicecontrol.Service_Packet_Constractor(sValue,sSiliconid)
-				s = Recent_Request(request_at=sTime,request_siliconid=sSiliconid,
-					request_packet=sStringPacket,served_at=sTime,sucess_at=sTime)
-				s.save()
-				return HttpResponse(sStringPacket)
+						sStringPacket = servicecontrol.Service_Packet_Constractor(sValue,sSiliconid)
+						s = Recent_Request(request_at=sTime,request_siliconid=sSiliconid,
+							request_packet=sStringPacket,served_at=sTime,sucess_at=sTime)
+						s.save()
+						return HttpResponse(sStringPacket)
 
-			else:
-				sStringPacket = servicecontrol.Service_No_Packet_Constractor('181E0BC8000E1440')
-				return HttpResponse(sStringPacket)
+					else:
+						sStringPacket = servicecontrol.Service_No_Packet_Constractor('181E0BC8000E1440')
+						return HttpResponse(sStringPacket)
 				
+				except Exception as e:
+					sErrorlog = Serrorlog(error_at = time, error_name = e)
+					sErrorlog.save()
+					sStringPacket = servicecontrol.Service_No_Packet_Constractor('181E0BC8000E1440')
+					return HttpResponse(sStringPacket)
+
+			if (sApp_Request.app_id == "0066"):
+				try:
+					sLastLog = ACLog.objects.latest('id')
+					if(sLastLog.action_taken == 0):
+						sValue = sLastLog.packet_str
+						sLastLog.action_taken = '1'
+						sAction = ACAction(log_id=sLastLog.id,action_at=sTime,siliconid=sLastLog.siliconid)
+						sAction.save()
+						sLastLog.save()
+
+						sStringPacket = servicecontrol.Service_Packet_Constractor(sValue,sSiliconid)
+						s = Recent_Request(request_at=sTime,request_siliconid=sSiliconid,
+							request_packet=sStringPacket,served_at=sTime,sucess_at=sTime)
+						s.save()
+						return HttpResponse(sStringPacket)
+
+					else:
+						sStringPacket = servicecontrol.Service_No_Packet_Constractor('181E0BC8000E1440')
+						return HttpResponse(sStringPacket)
+				
+				except Exception as e:
+					sErrorlog = Serrorlog(error_at = time, error_name = e)
+					sErrorlog.save()
+					sStringPacket = servicecontrol.Service_No_Packet_Constractor('181E0BC8000E1440')
+					return HttpResponse(sStringPacket)
+
 		except Exception as e:
-				sErrorlog = Serrorlog(error_at = time, error_name = e)
-				sErrorlog.save()
-				sStringPacket = servicecontrol.Service_No_Packet_Constractor('181E0BC8000E1440')
-				return HttpResponse(sStringPacket)
+			sErrorlog = Serrorlog(error_at = time, error_name = e)
+			sErrorlog.save()
+			sStringPacket = servicecontrol.Service_No_Packet_Constractor('181E0BC8000E1440')
+			return HttpResponse(sStringPacket)
