@@ -83,7 +83,7 @@ HomeCon
 			</div>
 			<div class="col-sm-3">
     			<div class="panel">
-      				<div class="panel-heading panel-skyblue">Recent Sucess Process</div>
+      				<div class="panel-heading panel-green">Recent Sucess Process</div>
       				<div class="panel-body">
       					<p id="acconsucessinfo">CMD info: {{ acconsucessinfo }} </p>
       					<p id="acconsucessstatus">CMD status: {{ acconsucessstatus }} </p> 
@@ -93,11 +93,11 @@ HomeCon
 			</div>
 			<div class="col-sm-3">
     			<div class="panel">
-      				<div class="panel-heading panel-blue">Recent Applied Process</div>
+      				<div class="panel-heading panel-skyblue">Recent Applied Process</div>
       				<div class="panel-body">
-      					<p id="acconfailinfo">CMD failed: {{ acconfailinfo }} </p>
-      					<p id="acconfailvalue">CMD value: {{ acconfailvalue }} </p> 
-        				<p id="acconfailtime">CMD failed at: {{ acconfailtime }} ago</p>
+      					<p id="acconappliedinfo">CMD applied: {{ acconappliedinfo }} </p>
+      					<p id="acconappliedvalue">CMD value: {{ acconappliedvalue }} </p> 
+        				<p id="acconappliedtime">CMD applied at: {{ acconappliedtime }} ago</p>
      		 		</div>
     			</div>
 			</div>
@@ -112,7 +112,7 @@ HomeCon
 		{% for sDetail in sAcconDetail %}	
 				<div class="col-sm-3">
 					<div class="panel">
-      					<div class="panel-heading panel-accon">{{ sDetail.device_info }}</div>
+      					<div class="panel-heading panel-accon"><p>{{ sDetail.device_info }}</p></div>
         					<div class="acconpanel-body">
         						{% static "" as baseUrl %}
         						{% if sDetail.device_id == 1 %}
@@ -121,7 +121,7 @@ HomeCon
 									{% else %}
 								    	<img src="{{baseUrl}}{{ sDetail.device_img_off }}" id = "device_img_{{sDetail.device_place}}" height="150" width="210">
 									{% endif %}
-								{% endif %}
+								{% endif %	}
 
 								{% if sDetail.device_id == 2 %}
         							{% if sDetail.current_value == 0 %}

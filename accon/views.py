@@ -9,6 +9,7 @@ from . import acconcontrol
 from django.template import RequestContext
 import json
 
+
 def Last_Ping_Time_Diff(Time):
 	now = datetime.datetime.utcnow().replace(tzinfo=utc)
 	PingTime = int((now - Time).total_seconds())
@@ -153,6 +154,22 @@ def Accon_Change(request):
 			sDeviceScale = ""
 		
 		try:
+			sAcconApplied      = ACLog.objects.latest('id')
+			sAcconAppliedTime  = sAcconApplied.log_at
+			sAcconAppliedTime  = Last_Ping_Time_Diff(sAcconAppliedTime)
+
+			sAcconAppliedInfo = sAcconApplied.log_info
+			sAcconAppliedValue = sAcconApplied.log_speed
+			print (sAcconAppliedValue)
+
+		except Exception as e:
+			sErrorlog = ACErrorlog(error_at = time, error_name = str(e))
+			sErrorlog.save()
+			sAcconAppliedTime  =""
+			sAcconAppliedInfo  =""
+			sAcconAppliedValue =""
+
+		try:
 			sAcconAction = ACAction.objects.latest('id')
 			sAcconActionTime = sAcconAction.action_at
 			sAcconActionTime = Last_Ping_Time_Diff(sAcconActionTime)
@@ -203,7 +220,8 @@ def Accon_Change(request):
 		'devicecurrentvalue':sDeviceCurrentValue,'devicescale':sDeviceScale,
 		'acconfailtime': sAcconFailTime,'acconfailinfo':sAcconFailInfo,'acconfailvalue':sAcconFailValue,
 		'acconactiontime':sAcconActionTime,'acconactioninfo':sAcconActionInfo,'acconactionvalue':sAcconActionValue,
-		'acconsucesstime':sAcconSucessTime,'acconsucessinfo':sAcconSucessInfo,'acconsucessstatus':sAcconSucessStatus,}
+		'acconsucesstime':sAcconSucessTime,'acconsucessinfo':sAcconSucessInfo,'acconsucessstatus':sAcconSucessStatus,
+		'acconappliedinfo':sAcconAppliedInfo,'acconappliedvalue':sAcconAppliedValue,'acconappliedtime':sAcconAppliedTime,}
 
 		return HttpResponse(json.dumps({'saccondetail':sAcconDetail}))
 

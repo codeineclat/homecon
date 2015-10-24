@@ -26,7 +26,7 @@ function Send_Value_To_server (DeviceId,Value,Speed) {
 			sSpeed    : Speed,
 			sAppID    : appid
 	      	};
-	
+		
 		$.ajax({
 			url: url,
 	  		type: type,
@@ -66,6 +66,18 @@ function Send_Value_To_server (DeviceId,Value,Speed) {
 				var acconsucessstatus = returnedData.saccondetail.acconsucessstatus;
 				acconsucessstatus = "CMD status :" . concat(acconsucessstatus)
 
+				var acconappliedtime     = returnedData.saccondetail.acconappliedtime;
+	  			acconappliedtime = "CMD applied at: " . concat(acconappliedtime)
+	  			acconappliedtime = acconappliedtime . concat(" ago")
+
+				var acconappliedinfo     = returnedData.saccondetail.acconappliedinfo;
+				acconappliedinfo = "CMD applied   :" . concat(acconappliedinfo)
+
+				var acconappliedvalue    = returnedData.saccondetail.acconappliedvalue;
+				
+				acconappliedvalue = "CMD value: " . concat(acconappliedvalue)
+
+
 				$('#acconfailtime').html(acconfailtime);
 	  			$('#acconfailinfo').html(acconfailinfo);
 	  			$('#acconfailvalue').html(acconfailvalue);
@@ -73,10 +85,14 @@ function Send_Value_To_server (DeviceId,Value,Speed) {
 	  			$('#acconactiontime').html(acconactiontime);
 	  			$('#acconactioninfo').html(acconactioninfo);
 	  			$('#acconactionvalue').html(acconactionvalue);
-	  			
+
 	  			$('#acconsucesstime').html(acconsucesstime);
 	  			$('#acconsucessinfo').html(acconsucessinfo);
 	  			$('#acconsucessstatus').html(acconsucessstatus);
+
+	  			$('#acconappliedtime').html(acconappliedtime);
+	  			$('#acconappliedinfo').html(acconappliedinfo);
+	  			$('#acconappliedvalue').html(acconappliedvalue);
 
 	  			var currentvalue = returnedData.saccondetail.devicecurrentvalue;
 	  			if (currentvalue == 0){
@@ -112,3 +128,4 @@ function Button_Selected(obj){
 
 	return false;
 }
+
